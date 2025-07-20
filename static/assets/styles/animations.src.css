@@ -1,0 +1,48 @@
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+.slides {
+    --slides: 5;
+    --gap: calc(var(--spacing)*5);
+
+    display: flex;
+    gap: var(--gap);
+    scroll-snap-type: x mandatory;
+}
+.slides:hover { animation-play-state: paused; }
+
+.slides > div {
+    scroll-snap-align: center;
+    animation: slides 30s linear infinite;
+    flex: 0 0 100%;
+
+    @variant md {
+        flex: 0 0 50%;
+    }
+    @variant xl {
+        flex: 0 0 30%;
+    }
+}
+
+@keyframes slides {
+    from { transform: translateX(0%); }
+    to { transform: translateX(calc((-100% - var(--gap)) * var(--slides))); }
+}
+
+/*
+.slides {
+    --slides: 4;
+
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: calc(1/3);
+
+    animation: slide 12s linear infinite;
+}
+
+@keyframes slide {
+    from { transform: translateX(0) }
+    to { transform: translateX(-100vw) }
+}
+*/
