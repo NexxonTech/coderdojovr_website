@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="max-w-5xl mx-auto mt-10 px-5 md:px-10 lg:px-0">
+        <div class="mt-10">
+            <div class="card flex-row gap-3 items-center border-5 border-primary rounded-4xl w-full p-6">
+                <i class="fa-solid fa-user text-4xl"></i>
+                <p class="flex-1 text-2xl">Benvenuto, {{ auth.name }}</p>
+                <a class="btn btn-primary" href="/admin/logout">Logout</a>
+            </div>
+            {% block admin_content %}{% endblock %}
+        </div>
+    </div>
+{% endblock %}

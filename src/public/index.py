@@ -27,4 +27,4 @@ def serve_index(client: Client) -> str:
         if (date := datetime.fromisoformat(date_record["date"])) < today
     ]
 
-    return render_template("pages/index.html", today=today, next_dates=next_dates, past_dates=past_dates)
+    return render_template("pages/public/index.html", today=today, next_dates=next_dates, past_dates=past_dates)

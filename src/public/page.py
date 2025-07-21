@@ -20,7 +20,7 @@ def serve_chi_siamo(config: dict, client: Client) -> str:
             file=mentor["avatar"], project=appwrite_conf["project"],
         )
 
-    return render_template("pages/chi_siamo.html", mentors=mentor_records)
+    return render_template("pages/public/chi_siamo.html", mentors=mentor_records)
 
 
 def serve_faqs(client: Client) -> str:
@@ -30,7 +30,7 @@ def serve_faqs(client: Client) -> str:
         Query.order_asc("title")
     ])["documents"]
 
-    return render_template("pages/faqs.html", questions=question_records)
+    return render_template("pages/public/faqs.html", questions=question_records)
 
 
 def serve_page(config: dict, client: Client, slug: str) -> str:
@@ -44,5 +44,5 @@ def serve_page(config: dict, client: Client, slug: str) -> str:
         Query.equal('slug', slug),
     ])["documents"]
     if len(page_records) > 0:
-        return render_template("pages/page.html", page=page_records[0])
+        return render_template("pages/public/page.html", page=page_records[0])
     abort(404)

@@ -1,3 +1,4 @@
+from flask import g
 import os, tomllib
 
 
@@ -14,3 +15,7 @@ class Config:
                 cls.config = tomllib.load(settings_file)
                 cls.read = True
         return cls.config
+
+    @classmethod
+    def load(cls):
+        g.config = cls.get()

@@ -23,7 +23,7 @@ per fare ciò, l'unica dipendenza richiesta è Nix (si veda https://nixos.org/do
 nix build .#dockerimg
 ```
 
-Per garantire il supporto a vecchi Raspberry PI o altri single-board computer con processore ARM a 32bit:
+Oppure, per garantire il supporto a vecchi Raspberry PI o altri single-board computer con processore ARM a 32bit:
 
 ```bash
 nix build .#dockerimg_armv7
@@ -38,13 +38,15 @@ docker load -i result
 e avviata con
 
 ```bash
-docker run -it -v $"/path/to/config:/var/coderdojo_config" -p 8000:8000 --rm coderdojo_portal:0.1.0
+docker run -it -v "/path/to/config:/var/coderdojo_config" -p 8000:8000 --rm coderdojo_portal:0.1.0
 ```
 
 dopo aver salvato un file di configurazione `Settings.toml` che segue il template qui sotto nella cartella
 `/path/to/config` (ovviamente popolato con le proprie informazioni):
 
 ```toml
+secret_key = "<Chiave di firma dei token>"
+
 [appwrite]
 endpoint = "<AppWrite Endpoint>"
 project = "<AppWrite Project>"

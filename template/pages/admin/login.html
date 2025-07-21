@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block title %}Login | CoderDojo Verona{% endblock %}
+
+{% block content %}
+<div class="max-w-5xl mx-auto mt-10 px-5 md:px-10 lg:px-0">
+    <div class="mt-10">
+        <div class="card bg-[url(../images/coderdojo.jpg)] bg-cover rounded-4xl w-full min-h-[200px]"></div>
+        <h1 class="font-bold text-4xl mt-5">Login</h1>
+        <p class="text-xl">Accedi all'area riservata ai Mentor</p>
+    </div>
+    <div class="card max-w-3xl mt-5 mx-auto gap-5 p-6">
+        {% if error %}
+        <div role="alert" class="alert alert-error">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 shrink-0 stroke-current" fill="none" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <span>Non è stato possibile fare il login. Controlla le credenziali inserite e, se l'errore persiste, contatta l'amministratore.</span>
+        </div>
+        {% endif %}
+        <form class="flex flex-col items-center gap-5" method="post">
+            <div class="w-full">
+                <fieldset class="fieldset">
+                    <legend class="fieldset-legend">Email</legend>
+                    <label>
+                        <input type="email" name="email" class="input w-full" placeholder="name@example.org" />
+                    </label>
+                </fieldset>
+                <fieldset class="fieldset">
+                    <legend class="fieldset-legend">Password</legend>
+                    <label>
+                        <input type="password" name="password" class="input w-full" />
+                    </label>
+                </fieldset>
+            </div>
+            <input class="btn btn-success btn-wide" type="submit" value="Login" />
+        </form>
+    </div>
+</div>
+{% endblock %}

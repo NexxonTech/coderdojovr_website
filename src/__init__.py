@@ -1,31 +1,41 @@
-from appwrite.client import Client
 from appwrite.query import Query
 from appwrite.services.databases import Databases
-from flask import Flask
-import os
+from appwrite.services.users import Users
+from flask import Flask, g
+from flask_login import LoginManager
 
+from src.admin import admin_bp, User
+from src.appwrite_client import AppwriteClient
 from src.config import Config
-from src.index import serve_index
-from src.page import serve_page
+from src.public import public_bp
 
-config = Config.get()
 
-client = Client()
 app = Flask(__name__, static_folder="../static", template_folder="../template")
+app.secret_key = Config.get()["secret_key"]
+login_manager = LoginManager()
+login_manager.init_app(app)
+login_manager.login_view = "/admin/login"
+
+app.register_blueprint(public_bp)
+app.register_blueprint(admin_bp, url_prefix="/admin")
 
 
-@app.route("/")
-def index() -> str:
-    return serve_index(client)
+@app.before_request
+def load_context():
+    AppwriteClient.load()
+    Config.load()
 
-@app.route("/page/<slug>")
-def page(slug) -> str:
-    return serve_page(config, client, slug)
+
+@login_manager.user_loader
+def user_loader(userid):
+    return User.try_recover(g.appwrite, userid)
 
 
 @app.context_processor
 def inject_utilities():
-    databases = Databases(client)
+    AppwriteClient.load()
+
+    databases = Databases(g.appwrite)
 
     def get_menu():
         page_records = databases.list_documents("coderdojo_portal", "pages", [
@@ -35,9 +45,3 @@ def inject_utilities():
         return page_records
 
     return dict(get_menu=get_menu)
-
-
-with app.app_context():
-    appwrite_conf = config["appwrite"]
-
-    client.set_endpoint(appwrite_conf["endpoint"]).set_project(appwrite_conf["project"]).set_key(appwrite_conf["key"])

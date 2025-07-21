@@ -10,3 +10,9 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 });
+
+tinymce.init({
+    selector: 'textarea.tinymcearea',
+    branding: false,
+    promotion: false
+});
