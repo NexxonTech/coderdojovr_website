@@ -1,0 +1,28 @@
+{% extends "site_base.html" %}
+
+{% load wagtailcore_tags %}
+
+{% block site_content %}
+    <div class="max-w-5xl mx-auto mt-10 px-5 md:px-10 lg:px-0">
+        <div class="mt-10">
+            <div class="card bg-[url(../images/coderdojo.jpg)] bg-cover rounded-4xl w-full min-h-[200px]"></div>
+            <h1 class="font-bold text-4xl mt-5">Chi siamo?</h1>
+            <p class="text-xl">Vieni a conoscere i Mentor che ti accompagneranno alla scoperta della tecnologia e dell'informatica</p>
+        </div>
+        <div class="flex flex-col gap-5 mt-20">
+            {% for mentor in mentors %}
+            <div class="card flex-initial bg-base-100 shadow-xl">
+                <div class="card-body md:flex-row gap-5">
+                    <img class="max-md:self-center min-w-[250px] max-w-[250px] h-fit rounded-lg" src="{{ mentor.avatar.url }}" />
+                    <div>
+                        <h2 class="card-title">{{ mentor.display_name }}</h2>
+                        <div class="prose max-w-none">
+                            {{ mentor.bio|richtext }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

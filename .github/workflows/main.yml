@@ -1,0 +1,36 @@
+name: "CoderDojo Portal Full Build"
+on:
+  push:
+jobs:
+  Build:
+    strategy:
+      matrix:
+        os: [ ubuntu-latest ]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: Checkout Git repo
+        uses: actions/checkout@v5
+      - name: Setup Nix
+        uses: nixbuild/nix-quick-install-action@v32
+      - name: Restore and cache Nix store
+        uses: nix-community/cache-nix-action@v6
+        with:
+          primary-key: cache-${{ matrix.os }}-${{ hashFiles('**/*.nix') }}-${{ hashFiles('**/*.lock', '**/Cargo.toml') }}
+          restore-prefixes-first-match: |
+            cache-${{ matrix.os }}-${{ hashFiles('**/*.nix') }}
+            cache-${{ matrix.os }}
+      - name: Build x86-64 Docker Image
+        run: nix build .#dockerimg
+      - name: Get x86-64 Docker Image Artifact
+        run: cp -r result coderdojo_portal_dockerimg_x86-64.tar.gz
+      - name: Build ARMv7 Docker Image
+        run: nix build .#dockerimg_armv7
+      - name: Get ARMv7 Docker Image Artifact
+        run: cp -r result coderdojo_portal_dockerimg_armv7.tar.gz
+      - name: Upload Artifacts
+        continue-on-error: true
+        uses: actions/upload-artifact@v4
+        with:
+          name: coderdojo_portal
+          path: coderdojo_portal_dockerimg*.tar.gz
+          retention-days: 30

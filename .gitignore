@@ -1,5 +1,8 @@
 **/__pycache__/
-.direnv/
-pyenv/
-result
-Settings.toml
+/.direnv/
+/media/
+/pyenv/
+/static/
+/*.sqlite3
+/result
+/Settings.*.toml

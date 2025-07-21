@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_css %}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/fontawesome.min.css" integrity="sha256-TBe0l9PhFaVR3DwHmA2jQbUf1y6yQ22RBgJKKkNkC50=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tinymce@7.9.1/skins/ui/oxide/content.min.css" integrity="sha256-FZAfLtl1snjwZTQufoydxrvd9mS3txklKQOVhoaC43o=" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&family=Playpen+Sans:wght@100..800&display=swap" rel="stylesheet">
+    <link href="{% static "css/main.min.css" %}" rel="stylesheet">
+{% endblock %}
+
+{% block extra_js %}
+    <script src="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/js/all.min.js" integrity="sha256-BAR0H3Qu2PCfoVr6CtZrcnbK3VKenmUF9C6IqgsNsNU=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/tinymce@7.9.1/tinymce.min.js" integrity="sha256-p7g47P/YXCwLEUxcBoAvFHbM0Ae1ZVfAsqFLAXU8j+Q=" crossorigin="anonymous"></script>
+    <script src="{% static "js/main.js" %}"></script>
+{% endblock %}
+
+{% block body_class %}
+    flex flex-col font-[Lexend] min-h-screen
+{% endblock %}
+
+{% block content %}
+    <div class="flex-1">
+        {% include "components/navbar.html" %}
+        {% block site_content %}{% endblock %}
+        {% include "components/footer.html" %}
+    </div>
+{% endblock %}

@@ -1,0 +1,24 @@
+{% extends "site_base.html" %}
+
+{% load wagtailcore_tags %}
+
+{% block site_content %}
+<div class="max-w-5xl mx-auto mt-10 px-5 md:px-10 lg:px-0">
+    <div class="mt-10">
+        <div class="card bg-[url(../images/coderdojo.jpg)] bg-cover rounded-4xl w-full min-h-[200px]"></div>
+        <h1 class="font-bold text-4xl mt-5">FAQs</h1>
+        <p class="text-xl">Hai una domanda che non viene risposta nel resto del sito? Prova a vedere se qualcuno l'ha posta prima di te.</p>
+    </div>
+    <div class="join join-vertical mt-20 w-full">
+        {% for question in page.questions.all %}
+        <div class="collapse collapse-arrow join-item bg-base-100 border border-base-300">
+            <input type="radio" name="faqs-accordion" />
+            <div class="collapse-title font-semibold">{{ question.title }}</div>
+            <div class="collapse-content prose max-w-none">
+                {{ question.body|richtext }}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
