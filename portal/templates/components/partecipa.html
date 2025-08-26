@@ -1,0 +1,137 @@
+{% load eventbrite_tags %}
+
+{% get_next_event as next_event %}
+
+<!-- Modal Partecipa -->
+<dialog id="modal_partecipa" class="modal modal-bottom sm:modal-middle" x-data="{
+    step: {% if next_event %}0{% else %}-1{% endif %},
+    finish: function() {
+        modal_partecipa.close();
+        this.step = 0;
+    }
+}" x-init="document.addEventListener('DOMContentLoaded', () => window.EBWidgets.createWidget({
+    widgetType: 'checkout',
+    eventId: '{{ next_event.id }}',
+    modal: true,
+    modalTriggerElementId: 'open_eventbrite_btn'
+}))" @cancel="step = 0">
+    <div class="modal-box max-w-3xl" x-show="step == -1" x-transition>
+        <h3 class="text-2xl font-bold">Pronto a partecipare? 🔥</h3>
+        <h4 class="text-xl font-bold">Noi non vedremo l'ora di ospitarti al prossimo evento, però non ci sono ancora date in programma a cui puoi iscriverti... 😔</h4>
+        <p class="mt-5">Ma non disperare, nel frattempo puoi iscriverti alla newsletter di CoderDojo Verona per ricevere tutti gli aggiornamenti sui prossimi eventi:</p>
+        <div class="modal-action">
+            <form method="dialog">
+                <button @click="window.location.href = 'https://groups.google.com/g/cdvr-news/'" class="btn btn-primary">Sì, iscriviamoci ora!</button>
+                <button class="btn btn-secondary">No, sarà per un'altra volta</button>
+            </form>
+        </div>
+    </div>
+    <div class="modal-box sm:w-11/12 sm:max-w-5xl" x-show="step == 0" x-transition>
+        <h3 class="text-2xl font-bold">Pronto a partecipare? 🔥</h3>
+        <h4 class="text-xl font-bold">Noi non vediamo l'ora di ospitarti al prossimo evento.</h4>
+        <p class="mt-5">Prima di tutto: questa è la prima volta che partecipi a CoderDojo?</p>
+        <div class="modal-action">
+            <button @click="step++" class="btn btn-primary">Sì, è la prima volta</button>
+            <button id="open_eventbrite_btn" @click="finish" class="btn btn-secondary">No, sono un veterano</button>
+        </div>
+    </div>
+    <div class="modal-box sm:w-11/12 sm:max-w-5xl" x-show="step >= 1 && step <= 3">
+        <h3 class="text-2xl font-bold">Il tuo primo CoderDojo, huh?</h3>
+        <h4 class="text-xl font-bold">Questo sì che è un momento indimenticabile: partiamo da qualche base per godercelo appieno.</h4>
+        <div class="mt-5 flex flex-col gap-3" x-show="step == 1">
+            <div>
+                <h5 class="font-bold">Come iscriversi</h5>
+                <p>
+                    Non ci si iscrive al corso per tutto l’anno, ma di volta in volta alle sessioni tramite Eventbrite.
+                    Eventbrite è un servizio on-line per gestire l’organizzazione di eventi e fornire informazioni sulle iniziative in calendario.
+                </p>
+            </div>
+            <div>
+                <h5 class="font-bold mt-2">Informazioni da conoscere prima di iscriversi</h5>
+                <ul class="list-disc ml-5">
+                    <li>Si accettano bimbi e ragazzi di età nella fascia tra i 8 e i 17 anni.</li>
+                    <li>
+                        E’ richiesta la partecipazione di un accompagnatore adulto per tutti i ragazzi al di sotto dei 14 anni.
+                        Questo non significa un genitore per ogni bambino, ma che ci sia un adulto che conosca uno o più bambini
+                        e che si prenda la responsabilità su di essi.
+                        Un Coderdojo è formato da volontari che si concentrano sull’insegnamento e non sulla sorveglianza…
+                    </li>
+                    <li>In media 2 incontri al mese, generalmente al sabato per la durata di 2 ore</li>
+                    <li>Sessioni di circa 25-35 ragazzi</li>
+                    <li>
+                        I bimbi e ragazzi devono essere dotati di un portatile (Windows, MAC o Linux) proprio.
+                        Di nuovo, non è necessario che ogni bambino abbia un computer, ma più o meno che ce ne sia uno ogni due bambini,
+                        se portate più bambini. Alcuni portatili li possiamo mettere a disposizone noi, ma non ne abbiamo per tutti.
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="mt-5 flex flex-col gap-3" x-show="step == 2">
+            <div>
+                <h5 class="font-bold">Consenso</h5>
+                <p>
+                    Durante l’evento faremo alcune foto, che ci servono sia come ricordo che per pubblicità sui social network.
+                    Nel prenotare un biglietto, dovrete accettare il consenso informato per la pubblicazione delle foto.
+                    Lo scopo è puramente pubblicitario – date un’occhiata alla nostra pagina Facebook per capire cosa pubblichiamo.
+                    Se qualche genitore vuole fare il volontario e fare qualche foto, una macchina fotografica “seria” la mettiamo a disposizione noi!
+                </p>
+            </div>
+            <div>
+                <h5 class="font-bold">Cancellazione</h5>
+                <p>Se non siete più in grado di partecipare, fatecelo sapere per tempo: metteremo il vostro posto a disposizione alle persone in lista d’attesa.</p>
+            </div>
+            <div>
+                <h5 class="font-bold">Show-and-tell</h5>
+                <p>
+                    Se i vostri ragazzi hanno lavorato ad un progetto a casa, o hanno terminato quello iniziato la volta scorsa,
+                    salvate il progetto e inviatelo a <a class="text-orange-600" href="mailto:coderdojovr@gmail.com">coderdojovr@gmail.com</a>. Mostreremo i progetti all’inizio dell’incontro.
+                </p>
+            </div>
+            <div>
+                <h5 class="font-bold">Orari</h5>
+                <p>
+                    I mentor arrivano nella struttura circa mezz’ora prima dell’evento. Se possibile, arrivate circa 10 minuti prima.
+                    Per chi vuole dare una mano a preparare, anche 15 minuti prima.
+                </p>
+            </div>
+            <div>
+                <h5 class="font-bold">Cosa portare</h5>
+                <ul class="list-disc ml-5">
+                    <li>Portatile Linux, Mac o Windows e mouse. Ricordatevi anche l’alimentatore!</li>
+                    <li>Se potete, portate anche una ciabatta (nel senso di presa elettrica multipla, non quelle che usate ai piedi).</li>
+                    <li>Una merenda e da bere: programmare mette fame! A volte tuttavia abbiamo a disposizione merende offerte dagli sponsor!</li>
+                </ul>
+            </div>
+        </div>
+        <div class="mt-5 flex flex-col gap-3" x-show="step == 3">
+            <div>
+                <h5 class="font-bold">Come preparare l'ambiente</h5>
+                <p>Seguento queste istruzioni potrete preparare in anticipo il vostro ambiente di lavoro per arrivare all'evento pronti a iniziare.</p>
+                <p>Ovviamente, nulla di questo è strettamente obbligatorio: se non riuscite a fare qualcosa potrete chiedere sul posto l'aiuto dei Mentor:</p>
+                <ul class="list-disc ml-5 mt-3">
+                    <li>
+                        <span class="font-bold">Scratch</span>:
+                        Per iniziare con Scratch non dovete far altro che recarvi su <a class="text-orange-600" href="https://scratch.mit.edu/">scratch.mit.edu</a> e creare un nuovo account
+                        (sempre che non ne abbiate già uno).
+                    </li>
+                    <li>
+                        <span class="font-bold">Arduino</span>:
+                        Per Arduino, è importante installare sul proprio dispositivo l'IDE apposito disponibile sul <a class="text-orange-600" href="https://www.arduino.cc/en/software/">sito ufficiale</a>.
+                    </li>
+                    <li>
+                        <span class="font-bold">Python</span>:
+                        Per Python provate a seguire le istruzioni nella sezione "Installazione"
+                        del tutorial disponibile su <a class="text-orange-600" href="https://hub.nexxontech.it/coderdojo/arcade/01-introduction/">NexxonTech Hub</a>.
+                        Se avete un sistema Mac o Linux, inoltre, vi consigliamo di installare <a class="text-orange-600" href="https://zed.dev">Zed Editor</a> per una migliore esperienza.
+                    </li>
+            </div>
+        </div>
+        <div class="modal-action">
+            <button @click="step++" x-show="step < 3" class="btn btn-primary">Perfetto, continuiamo!</button>
+            <button id="open_eventbrite_btn" @click="finish" x-show="step == 3" class="btn btn-primary">Sono pronto!</button>
+        </div>
+    </div>
+    <form method="dialog" class="modal-backdrop">
+        <button @click="step = 0">Chiudi</button>
+    </form>
+</dialog>

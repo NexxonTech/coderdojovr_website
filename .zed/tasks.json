@@ -1,0 +1,14 @@
+[
+  {
+    "label": "Build CoderDojoVR Portal TailwindCSS",
+    "command": "tailwindcss",
+    "args": ["-m", "-i", "portal/static/css/main.src.css", "-o", "portal/static/css/main.min.css"],
+    "allow_concurrent_runs": false
+  },
+  {
+    "label": "Run CoderDojoVR Portal dev server",
+    "command": "python",
+    "args": ["manage.py", "runserver", "0.0.0.0:8000"],
+    "allow_concurrent_runs": false
+  }
+]
