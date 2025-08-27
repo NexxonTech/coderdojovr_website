@@ -138,7 +138,7 @@ DATA_UPLOAD_MAX_NUMBER_FIELDS = 10_000
 
 # === Wagtail settings ===
 
-WAGTAIL_SITE_NAME = "coderdojo_portal"
+WAGTAIL_SITE_NAME = "CoderDojo Verona Portal"
 
 # Search
 # https://docs.wagtail.org/en/stable/topics/search/backends.html
