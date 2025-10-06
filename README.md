@@ -54,4 +54,8 @@ host = "<Host del database>"
 port = <Porta del database>
 user = "<Utente del database>"
 password = "<Password del database>"
+
+[tito]
+token = "<TiTo Secret Key>"
+account = "<TiTo Account Slug>"
 ```

@@ -1,14 +1,14 @@
 {% extends "admin/admin_base.html" %}
 
-{% block titletag %}Prossimo evento su Eventbrite{% endblock %}
+{% block titletag %}{{ event.title }}{% endblock %}
 
 {% block content %}
     {% include "wagtailadmin/shared/breadcrumbs.html" with items=breadcrumbs_items %}
-    {% include "wagtailadmin/shared/header.html" with title=event.name.text icon="date" %}
+    {% include "wagtailadmin/shared/header.html" with title=event.title icon="date" %}
 
     <div class="nice-padding">
         <div>
-            <h2>Partecipanti iscritti: {{ event.attendees|length }}</h2>
+            <h2>Partecipanti iscritti: {{ event.tickets|length }}</h2>
         </div>
         <div class="mt-10">
             <table id="attendees_table" class="listing">
@@ -20,22 +20,18 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {% for attendee in event.attendees %}
+                    {% for ticket in event.tickets %}
                         <tr>
-                            <td>{{ attendee.profile.name }}</td>
+                            <td>{{ ticket.name }}</td>
                             <td>
-                                {% for answer in attendee.answers %}
-                                    {% if answer.question == "Classe frequentata" %}
-                                        {{ answer.answer }}
+                                {% for answer in ticket.answers %}
+                                    {% if answer.question_title == "Classe frequentata" %}
+                                        {{ answer.response }}
                                     {% endif %}
                                 {% endfor %}
                             </td>
                             <td>
-                                {% for answer in attendee.answers %}
-                                    {% if answer.question == "A quale argomento siete interessati?" %}
-                                        {{ answer.answer }}
-                                    {% endif %}
-                                {% endfor %}
+                                {{ ticket.release_title }}
                             </td>
                         </tr>
                     {% empty %}

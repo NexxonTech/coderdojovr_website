@@ -18,8 +18,8 @@
                 <tbody>
                     {% for event in events %}
                         <tr>
-                            <td><a href="/admin/eventbrite/{{ event.id }}">{{ event.name.text }}</a></td>
-                            <td>{{ event.summary }}</td>
+                            <td><a href="/admin/tito/{{ event.slug }}">{{ event.title }}</a></td>
+                            <td>{{ event.description }}</td>
                         </tr>
                     {% empty %}
                         <tr>

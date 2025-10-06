@@ -36,5 +36,5 @@ WAGTAILADMIN_BASE_URL = "http://localhost:8000"
 
 
 # === Eventbrite settings ===
-EVENTBRITE_TOKEN = Config.get("dev")["eventbrite"]["token"]
-EVENTBRITE_ORGID = Config.get("dev")["eventbrite"]["orgid"]
+TITO_TOKEN: str = Config.get("dev")["tito"]["token"]
+TITO_ACCOUNT: str = Config.get("dev")["tito"]["account"]

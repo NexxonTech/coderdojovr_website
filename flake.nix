@@ -23,8 +23,8 @@
         devShell = pkgs.mkShell {
           name = "coderdojo_website_dev";
           packages = with pkgs; [
+            basedpyright
             pyenv
-            pyright
             tailwindcss_4
           ];
         };
