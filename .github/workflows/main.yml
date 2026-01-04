@@ -1,5 +1,6 @@
-name: "CoderDojo Portal Full Build"
+name: "CoderDojoVR Build and Deploy"
 on:
+  pull_request:
   push:
 jobs:
   Build:
@@ -9,28 +10,43 @@ jobs:
     runs-on: ${{ matrix.os }}
     steps:
       - name: Checkout Git repo
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
       - name: Setup Nix
-        uses: nixbuild/nix-quick-install-action@v32
+        uses: nixbuild/nix-quick-install-action@v34
       - name: Restore and cache Nix store
-        uses: nix-community/cache-nix-action@v6
+        uses: nix-community/cache-nix-action@v7.0.0
         with:
-          primary-key: cache-${{ matrix.os }}-${{ hashFiles('**/*.nix') }}-${{ hashFiles('**/*.lock', '**/Cargo.toml') }}
+          primary-key: cache-${{ matrix.os }}-${{ hashFiles('**/*.nix') }}-${{ hashFiles('**/*.lock') }}
           restore-prefixes-first-match: |
             cache-${{ matrix.os }}-${{ hashFiles('**/*.nix') }}
             cache-${{ matrix.os }}
-      - name: Build x86-64 Docker Image
-        run: nix build .#dockerimg
-      - name: Get x86-64 Docker Image Artifact
-        run: cp -r result coderdojo_portal_dockerimg_x86-64.tar.gz
-      - name: Build ARMv7 Docker Image
-        run: nix build .#dockerimg_armv7
-      - name: Get ARMv7 Docker Image Artifact
-        run: cp -r result coderdojo_portal_dockerimg_armv7.tar.gz
-      - name: Upload Artifacts
-        continue-on-error: true
+      - name: Build the Site
+        run: nix build
+      - name: Get the Site Artifacts
+        run: mkdir -p coderdojovr && cp -r result/* coderdojovr/
+      - name: Upload the Site Artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: coderdojo_portal
-          path: coderdojo_portal_dockerimg*.tar.gz
+          name: coderdojovr
+          path: coderdojovr/
           retention-days: 30
+      - name: Upload the Site for GH Pages
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: coderdojovr/
+  Deploy:
+    strategy:
+      matrix:
+        os: [ ubuntu-latest ]
+    runs-on: ${{ matrix.os }}
+    needs: build
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy Site to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

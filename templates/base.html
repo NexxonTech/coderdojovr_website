@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+    <head>
+        {% block head %}
+        <title>{% block title %}{% endblock title %} | CoderDojo Verona</title>
+
+        <meta charset="utf-8" />
+        <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible" />
+        <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport" />
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+        <link href="/assets/styles/main.min.css" rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
+        <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/fontawesome.min.css" rel="stylesheet" integrity="sha256-TBe0l9PhFaVR3DwHmA2jQbUf1y6yQ22RBgJKKkNkC50=" crossorigin="anonymous">
+        <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&family=Playpen+Sans:wght@100..800&display=swap" rel="stylesheet">
+        {% endblock head %}
+    </head>
+    <body class="font-[Lexend]">
+        <div class="flex flex-col min-h-screen">
+            {% include "common/navbar.html" %}
+            <div class="grow">
+                {% block site_content %}{% endblock %}
+            </div>
+            {% include "common/partecipa.html" %}
+            {% include "common/footer.html" %}
+        </div>
+
+        <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.9/dist/cdn.min.js" integrity="sha256-PtHu0lJIiSHfZeNj1nFd6wTX+Squ255SGZ/fc8seCtM=" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/js/all.min.js" integrity="sha256-BAR0H3Qu2PCfoVr6CtZrcnbK3VKenmUF9C6IqgsNsNU=" crossorigin="anonymous"></script>
+        <script src='https://js.tito.io/v2'></script>
+        <script src="/assets/js/main.js"></script>
+        <script src="/assets/js/dates.js"></script>
+    </body>
+</html>

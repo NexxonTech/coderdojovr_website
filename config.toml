@@ -1,0 +1,19 @@
+base_url = "https://coderdojovr.nexxontech.it"
+minify_html = true
+ignored_static = [ ".gitignore", "*.src.css", "*.mjs" ]
+
+[markdown]
+highlight_code = true
+
+[extra]
+dates = [
+    "2025-09-13", "2025-09-27", "2025-10-11", "2025-10-25", "2025-11-08", "2025-11-22", "2025-12-13", "2025-12-20",
+    "2026-01-10", "2026-01-24", "2026-02-07", "2026-02-21", "2026-03-07", "2026-03-21", "2026-04-11", "2026-04-18"
+]
+
+navbar_items = [
+    { title = "Chi siamo?", url = "/chi-siamo" },
+    { title = "FAQs", url = "/faq" },
+    { title = "Contatti", url = "/contatti" },
+    { title = "Diventa Mentor", url = "/diventa-mentor" },
+]

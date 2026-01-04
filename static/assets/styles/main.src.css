@@ -1,0 +1,6 @@
+@import "./themes.src.css";
+@import "./animations.src.css";
+
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+@plugin "./daisyui.mjs";

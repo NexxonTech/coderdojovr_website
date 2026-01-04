@@ -1,0 +1,13 @@
+[data-theme="light"] {
+    --color-primary: #c1390b;
+    --color-primary-content: #ffffff;
+
+    --color-secondary: #27476e;
+    --color-secondary-content: #ffffff;
+
+    --color-warning: #ffd166;
+    --color-warning-content: #000000;
+
+    --color-success: #3eb68a;
+    --color-success-content: #000000;
+}

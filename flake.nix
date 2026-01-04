@@ -1,32 +1,42 @@
 {
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     flake-utils.url = "github:numtide/flake-utils";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
   };
 
-  outputs = { self, nixpkgs, flake-utils }:
+  outputs = { self, flake-utils, nixpkgs, ... }:
     flake-utils.lib.eachDefaultSystem (
       system: let
         pkgs = import nixpkgs { inherit system; };
-        pkgs_armv7 = import nixpkgs {
-          inherit system;
-          crossSystem = { config = "armv7l-unknown-linux-gnueabihf"; };
+        daisyui = pkgs.fetchurl {
+          url = "https://github.com/saadeghi/daisyui/releases/download/v5.5.14/daisyui.mjs";
+          sha256 = "sha256-ZhCaZQYZiADXoO3UwaAqv3cxiYu87LEiZuonefopRUw=";
         };
-        pyenv = import ./nix/python.nix { inherit pkgs; };
-        coderdojo_portal = import ./nix/coderdojo_portal.nix { inherit pkgs; };
+        coderdojo_portal = pkgs.stdenvNoCC.mkDerivation {
+          pname = "coderdojo_portal";
+          version = "0.1.0";
+
+          src = ./.;
+
+          buildPhase = ''
+            cp ${daisyui} static/assets/styles/daisyui.mjs
+            ${pkgs.tailwindcss_4}/bin/tailwindcss -m -i static/assets/styles/main.src.css -o static/assets/styles/main.min.css
+            ${pkgs.zola}/bin/zola build
+          '';
+
+          installPhase = ''
+            cp -r public/ $out/
+          '';
+        };
       in {
-        packages = {
-          dockerimg = import ./nix/coderdojo_portal_docker.nix { inherit pkgs; inherit coderdojo_portal; };
-          dockerimg_armv7 = import ./nix/coderdojo_portal_docker.nix { pkgs = pkgs_armv7; inherit coderdojo_portal; };
-          pyenv = pyenv;
-        };
+        defaultPackage = coderdojo_portal;
         devShell = pkgs.mkShell {
-          name = "coderdojo_website_dev";
-          packages = with pkgs; [
-            basedpyright
-            pyenv
+          name = "coderdojo_portal_devenv";
+          packages = (with pkgs; [
+            ferron
             tailwindcss_4
-          ];
+            zola
+          ]);
         };
       }
     );
