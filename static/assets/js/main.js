@@ -2,6 +2,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const slideContainers = document.querySelectorAll('.slides');
 
   slideContainers.forEach(container => {
+    if (container.querySelector('[aria-hidden="true"]')) return;
+
     const items = Array.from(container.children);
     items.forEach(item => {
       const clone = item.cloneNode(true);
