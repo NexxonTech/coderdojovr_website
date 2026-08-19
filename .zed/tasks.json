@@ -1,14 +1,14 @@
 [
   {
-    "label": "Build CoderDojoVR Portal TailwindCSS",
+    "label": "Build CoderDojoVR Website TailwindCSS",
     "command": "tailwindcss",
-    "args": ["-m", "-i", "portal/static/css/main.src.css", "-o", "portal/static/css/main.min.css"],
+    "args": ["-wmi", "static/assets/styles/main.src.css", "-o", "static/assets/styles/main.min.css"],
     "allow_concurrent_runs": false
   },
   {
-    "label": "Run CoderDojoVR Portal dev server",
-    "command": "python",
-    "args": ["manage.py", "runserver", "0.0.0.0:8000"],
+    "label": "Run CoderDojoVR Website dev server",
+    "command": "zola",
+    "args": ["serve", "-i", "0.0.0.0", "-p", "8000"],
     "allow_concurrent_runs": false
   }
 ]

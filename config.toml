@@ -15,5 +15,6 @@ navbar_items = [
     { title = "Chi siamo?", url = "/chi-siamo" },
     { title = "FAQs", url = "/faq" },
     { title = "Contatti", url = "/contatti" },
+    { title = "Risorse", url = "/risorse" },
     { title = "Diventa Mentor", url = "/diventa-mentor" },
 ]

@@ -22,18 +22,14 @@ jobs:
             cache-${{ matrix.os }}
       - name: Build the Site
         run: nix build
-      - name: Get the Site Artifacts
+      - name: Get the Site Artifact
         run: mkdir -p coderdojovr && cp -r result/* coderdojovr/
-      - name: Upload the Site Artifacts
-        uses: actions/upload-artifact@v4
+      - name: Upload the Site Artifact for GH Pages
+        uses: actions/upload-pages-artifact@v4
         with:
           name: coderdojovr
           path: coderdojovr/
           retention-days: 30
-      - name: Upload the Site for GH Pages
-        uses: actions/upload-pages-artifact@v4
-        with:
-          path: coderdojovr/
   Deploy:
     strategy:
       matrix:
@@ -50,3 +46,5 @@ jobs:
       - name: Deploy Site to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+        with:
+          artifact_name: coderdojovr
