@@ -10,11 +10,11 @@ jobs:
     runs-on: ${{ matrix.os }}
     steps:
       - name: Checkout Git repo
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
       - name: Setup Nix
-        uses: nixbuild/nix-quick-install-action@v34
+        uses: nixbuild/nix-quick-install-action@v35
       - name: Restore and cache Nix store
-        uses: nix-community/cache-nix-action@v7.0.0
+        uses: nix-community/cache-nix-action@v7
         with:
           primary-key: cache-${{ matrix.os }}-${{ hashFiles('**/*.nix') }}-${{ hashFiles('**/*.lock') }}
           restore-prefixes-first-match: |
@@ -25,7 +25,7 @@ jobs:
       - name: Get the Site Artifact
         run: mkdir -p coderdojovr && cp -r result/* coderdojovr/
       - name: Upload the Site Artifact for GH Pages
-        uses: actions/upload-pages-artifact@v4
+        uses: actions/upload-pages-artifact@v5
         with:
           name: coderdojovr
           path: coderdojovr/
@@ -45,6 +45,6 @@ jobs:
     steps:
       - name: Deploy Site to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5
         with:
           artifact_name: coderdojovr
