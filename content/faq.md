@@ -43,7 +43,7 @@ Il portatile può montare un sistema operativo Windows, Mac oppure Linux.
 [[extra.questions]]
 title = "Occorre installare qualche programma particolare per poter seguire la lezione?"
 body = """
-È possibile seguire quanto spiegato a questa [pagina](https://www.coderdojovr.it/index.html%3Fpage_id=711.html).
+È possibile seguire quanto elencato nella <a onclick="modal_partecipa.showModal()">procedura di registrazione</a> facendo click su "Sì, è la prima volta".
 """
 
 [[extra.questions]]
