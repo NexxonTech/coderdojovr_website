@@ -7,7 +7,8 @@ title = "Risorse"
 I nostri incontri si svolgono in due modi: a volte andiamo “a braccio”, invitando i ragazzi ad esprimere la loro creatività. Altre volte creiamo dei tutorial da seguire, allo scopo di imparare tecniche più complesse.
 
 - [Scratch](/risorse/scratch/tutorial) – I tutorial di Coderdojo Verona, di altri Coderdojo e anche alcuni libri!
-- [Scratch – Le nostre sfide](/risorse/scratch/sfide) - Mettiti alla prova con le nostre sfide!
+- [Scratch - Le Card](https://drive.google.com/file/d/19F93wj0iJazvup7HOs4Yu6PBF0QqU4w3/view) - Cerca l'ispirazione per i tuoi progetti
+- [Scratch - Le nostre sfide](/risorse/scratch/sfide) - Mettiti alla prova con le nostre sfide!
 - [AppInventor](/risorse/appinventor/tutorial) – Per imparare a fare le tue app!
 - [MicroBit](/risorse/microbit/tutorial) – Non solo software
 - [Arduino](/risorse/arduino/tutorial) – Hardware, sul serio!
